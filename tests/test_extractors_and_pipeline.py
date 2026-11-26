@@ -1,8 +1,8 @@
 """Tests for document extractors and unified pipeline (fast & mocked neural modes)."""
 
-from humanlens.detectors.neural import ClassifierScore
-from humanlens.detectors.pipeline import analyze_document, analyze_file, analyze_text
-from humanlens.extractors import extract_from_text, inspect_unicode_hygiene, normalize_extracted_text
+from tracezero.detectors.neural import ClassifierScore
+from tracezero.detectors.pipeline import analyze_document, analyze_file, analyze_text
+from tracezero.extractors import extract_from_text, inspect_unicode_hygiene, normalize_extracted_text
 
 
 class _FakeEnsemble:

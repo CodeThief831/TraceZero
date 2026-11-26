@@ -22,8 +22,8 @@ def rewrite_with_openai_compatible(
     timeout: int = 45,
 ) -> str:
     """Rewrite a single flagged paragraph via an OpenAI-compatible /v1/chat/completions API (e.g., Ollama)."""
-    endpoint = (base_url or os.environ.get("HUMANLENS_LLM_BASE_URL") or "http://localhost:11434/v1").rstrip("/")
-    key = api_key or os.environ.get("HUMANLENS_LLM_API_KEY") or os.environ.get("OPENAI_API_KEY") or "ollama"
+    endpoint = (base_url or os.environ.get("TRACEZERO_LLM_BASE_URL") or "http://localhost:11434/v1").rstrip("/")
+    key = api_key or os.environ.get("TRACEZERO_LLM_API_KEY") or os.environ.get("OPENAI_API_KEY") or "ollama"
 
     resp = requests.post(
         f"{endpoint}/chat/completions",

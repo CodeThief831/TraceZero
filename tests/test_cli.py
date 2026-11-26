@@ -2,7 +2,7 @@
 
 from typer.testing import CliRunner
 
-from humanlens.cli import app
+from tracezero.cli import app
 
 runner = CliRunner()
 
@@ -10,7 +10,7 @@ runner = CliRunner()
 def test_cli_version_and_models():
     r1 = runner.invoke(app, ["version"])
     assert r1.exit_code == 0
-    assert "humanlens" in r1.stdout
+    assert "tracezero" in r1.stdout
 
     r2 = runner.invoke(app, ["models"])
     assert r2.exit_code == 0
@@ -23,7 +23,7 @@ def test_cli_scan_and_humanize_fast():
         ["scan", "Furthermore, it is crucial to leverage robust solutions today.", "--fast"],
     )
     assert r1.exit_code == 0
-    assert "HumanLens Analysis" in r1.stdout
+    assert "TraceZero Analysis" in r1.stdout
 
     r2 = runner.invoke(
         app,

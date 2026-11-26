@@ -1,0 +1,16 @@
+services:
+  tracezero:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: tracezero-workbench
+    ports:
+      - "8000:8000"
+    volumes:
+      # Model weights live on the host so the container image stays small
+      - ./models:/app/models
+    environment:
+      - TRACEZERO_MODELS_DIR=/app/models
+      # Optional: connect a local Ollama instance running on host
+      # - TRACEZERO_LLM_BASE_URL=http://host.docker.internal:11434/v1
+    restart: unless-stopped

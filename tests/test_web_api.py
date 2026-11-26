@@ -2,7 +2,7 @@
 
 from fastapi.testclient import TestClient
 
-from humanlens.web.app import app
+from tracezero.web.app import app
 
 client = TestClient(app)
 
@@ -10,7 +10,7 @@ client = TestClient(app)
 def test_home_and_health():
     r_home = client.get("/")
     assert r_home.status_code == 200
-    assert "HumanLens" in r_home.text
+    assert "TraceZero" in r_home.text
 
     r_health = client.get("/api/health")
     assert r_health.status_code == 200

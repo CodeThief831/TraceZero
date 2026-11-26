@@ -9,7 +9,7 @@ from pathlib import Path
 
 @dataclass(frozen=True)
 class ModelSpec:
-    """Metadata describing a Hugging Face model used by HumanLens."""
+    """Metadata describing a Hugging Face model used by TraceZero."""
 
     key: str
     repo_id: str
@@ -52,7 +52,7 @@ MODEL_REGISTRY: dict[str, ModelSpec] = {
 
 def resolve_models_root() -> Path:
     """Return the models root directory, keeping weights separate from source."""
-    env_dir = os.environ.get("HUMANLENS_MODELS_DIR")
+    env_dir = os.environ.get("TRACEZERO_MODELS_DIR")
     if env_dir:
         return Path(env_dir).expanduser().resolve()
     cwd_models = Path.cwd() / "models"
@@ -61,7 +61,7 @@ def resolve_models_root() -> Path:
     pkg_repo_models = Path(__file__).resolve().parents[2] / "models"
     if pkg_repo_models.exists():
         return pkg_repo_models
-    return Path.home() / ".cache" / "humanlens" / "models"
+    return Path.home() / ".cache" / "tracezero" / "models"
 
 
 def resolve_model_source(key: str) -> str:

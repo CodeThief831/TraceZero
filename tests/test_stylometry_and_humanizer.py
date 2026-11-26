@@ -1,7 +1,7 @@
 """Tests for stylometry auditing and deterministic humanizer rules."""
 
-from humanlens.detectors.stylometry import analyze_stylometry, split_sentences
-from humanlens.humanizer.rules import humanize_text
+from tracezero.detectors.stylometry import analyze_stylometry, split_sentences
+from tracezero.humanizer.rules import humanize_text
 
 
 def test_split_sentences_preserves_abbreviations():

@@ -1,4 +1,4 @@
-"""Typer + Rich CLI for HumanLens."""
+"""Typer + Rich CLI for TraceZero."""
 
 from __future__ import annotations
 
@@ -19,7 +19,7 @@ from .extractors import extract_from_file
 from .humanizer.rules import humanize_text
 
 app = typer.Typer(
-    name="humanlens",
+    name="tracezero",
     help="Local Multi-Model AI Text Detector, Perplexity Auditor & Humanization Workbench.",
     no_args_is_help=True,
 )
@@ -39,7 +39,7 @@ def _render_report(report: AnalysisReport) -> None:
             f"[bold]{report.source_name}[/bold]\n"
             f"Overall AI Score: [{color} bold]{report.overall_ai_score:.1f}%[/{color} bold]  |  "
             f"Verdict: [{color}]{report.verdict}[/{color}]",
-            title="HumanLens Analysis",
+            title="TraceZero Analysis",
         )
     )
 
@@ -91,15 +91,15 @@ def _render_report(report: AnalysisReport) -> None:
 
 @app.command()
 def version() -> None:
-    """Show HumanLens version."""
-    console.print(f"humanlens {__version__}")
+    """Show TraceZero version."""
+    console.print(f"tracezero {__version__}")
 
 
 @app.command()
 def models() -> None:
     """List supported models and whether they are cached locally."""
     root = resolve_models_root()
-    t = Table(title=f"HumanLens Models (root: {root})")
+    t = Table(title=f"TraceZero Models (root: {root})")
     t.add_column("Key", style="cyan")
     t.add_column("Kind")
     t.add_column("Size")
@@ -186,8 +186,8 @@ def serve(
     host: str = typer.Option("127.0.0.1", help="Bind host."),
     port: int = typer.Option(8000, help="Bind port."),
 ) -> None:
-    """Launch the interactive HumanLens Web UI (FastAPI)."""
+    """Launch the interactive TraceZero Web UI (FastAPI)."""
     import uvicorn
 
-    console.print(f"Starting HumanLens Web Workbench at [cyan]http://{host}:{port}[/cyan]")
-    uvicorn.run("humanlens.web.app:app", host=host, port=port, reload=False)
+    console.print(f"Starting TraceZero Web Workbench at [cyan]http://{host}:{port}[/cyan]")
+    uvicorn.run("tracezero.web.app:app", host=host, port=port, reload=False)

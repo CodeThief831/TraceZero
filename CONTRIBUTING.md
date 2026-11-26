@@ -1,4 +1,4 @@
-# Contributing to HumanLens
+# Contributing to TraceZero
 
 Contributions, bug reports, and new detector/extractor adapters are welcome.
 

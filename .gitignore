@@ -35,5 +35,5 @@ Thumbs.db
 .idea/
 *.log
 reports/
-*.humanlens.json
-*.humanlens.html
+*.tracezero.json
+*.tracezero.html

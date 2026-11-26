@@ -1,4 +1,4 @@
-"""FastAPI backend for the HumanLens Web Workbench."""
+"""FastAPI backend for the TraceZero Web Workbench."""
 
 from __future__ import annotations
 
@@ -17,7 +17,7 @@ from ..detectors.pipeline import analyze_document
 from ..extractors import extract_from_text, inspect_unicode_hygiene, normalize_extracted_text, split_paragraphs
 from ..humanizer.rules import humanize_text
 
-app = FastAPI(title="HumanLens", version=__version__)
+app = FastAPI(title="TraceZero", version=__version__)
 INDEX_HTML = Path(__file__).with_name("index.html")
 
 

@@ -3,7 +3,7 @@ requires = ["setuptools>=68.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "humanlens"
+name = "tracezero"
 version = "0.1.0"
 description = "Local multi-model AI text detector, Fast-DetectGPT perplexity auditor, PDF hygiene checker, and humanization workbench."
 readme = "README.md"
@@ -57,13 +57,13 @@ dev = [
 ]
 
 [project.scripts]
-humanlens = "humanlens.cli:app"
+tracezero = "tracezero.cli:app"
 
 [tool.setuptools.packages.find]
 where = ["src"]
 
 [tool.setuptools.package-data]
-humanlens = ["web/*.html"]
+tracezero = ["web/*.html"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
