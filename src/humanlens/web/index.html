@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HumanLens — AI Detection & Humanization Workbench</title>
+  <style>
+    :root {
+      --bg: #0b0f17;
+      --card: #121826;
+      --border: #1e293b;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --green: #22c55e;
+      --yellow: #eab308;
+      --red: #ef4444;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: var(--bg); color: var(--text); line-height: 1.5;
+    }
+    header {
+      border-bottom: 1px solid var(--border); padding: 16px 28px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    header h1 { margin: 0; font-size: 20px; letter-spacing: -0.3px; }
+    header span { color: var(--muted); font-size: 13px; }
+    main { max-width: 1200px; margin: 24px auto; padding: 0 20px; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 20px; }
+    @media (max-width: 900px) { main { grid-template-columns: 1fr; } }
+    .card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px;
+    }
+    textarea {
+      width: 100%; min-height: 290px; background: #090d14; color: var(--text);
+      border: 1px solid var(--border); border-radius: 8px; padding: 12px; font-size: 14px; resize: vertical;
+    }
+    .controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 12px; }
+    button {
+      background: var(--accent); color: #06131f; border: 0; border-radius: 8px;
+      padding: 9px 16px; font-weight: 600; cursor: pointer; font-size: 14px;
+    }
+    button.secondary { background: #1e293b; color: var(--text); }
+    button:disabled { opacity: 0.5; cursor: wait; }
+    label.chk { font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 6px; }
+    .score-box {
+      display: flex; align-items: baseline; justify-content: space-between;
+      padding: 14px; background: #090d14; border-radius: 10px; border: 1px solid var(--border);
+    }
+    .score-num { font-size: 36px; font-weight: 700; }
+    .pill { padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; background: #1e293b; }
+    .grid-metrics { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 12px; }
+    .metric { background: #090d14; border: 1px solid var(--border); border-radius: 8px; padding: 10px; }
+    .metric .k { font-size: 11px; color: var(--muted); text-transform: uppercase; }
+    .metric .v { font-size: 16px; font-weight: 600; margin-top: 2px; }
+    .list { margin-top: 14px; font-size: 13px; }
+    .flag-item { background: rgba(239,68,68,0.09); border-left: 3px solid var(--red); padding: 8px 10px; margin-bottom: 8px; border-radius: 4px; }
+    .sec-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+    input[type="file"] { font-size: 13px; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>HumanLens</h1>
+    <span>Local Multi-Model AI Detector &amp; Humanization Workbench</span>
+  </header>
+  <main>
+    <section class="card">
+      <textarea id="inputText" placeholder="Paste text here or upload a PDF / DOCX / TXT file below..."></textarea>
+      <div class="controls">
+        <button id="scanBtn" onclick="runScan()">Scan Text</button>
+        <button id="humBtn" class="secondary" onclick="runHumanize()">Humanize &amp; Clean</button>
+        <label class="chk"><input type="checkbox" id="useNeural" checked /> Neural Ensemble</label>
+        <label class="chk"><input type="checkbox" id="usePpl" /> DistilGPT2 Perplexity</label>
+      </div>
+      <div class="controls" style="margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border);">
+        <input type="file" id="fileInput" accept=".pdf,.docx,.txt,.md" />
+        <button class="secondary" onclick="runFileScan()">Scan File</button>
+      </div>
+      <div id="humNotes" class="list"></div>
+    </section>
+    <section class="card">
+      <div class="score-box">
+        <div>
+          <div style="font-size:12px;color:var(--muted);">OVERALL AI PROBABILITY</div>
+          <div id="overallScore" class="score-num">—</div>
+        </div>
+        <span id="verdictPill" class="pill">Ready</span>
+      </div>
+      <div class="grid-metrics" id="metricsGrid"></div>
+      <div class="list" id="hygieneBox"></div>
+      <div class="list" id="sectionsBox"></div>
+      <div class="list" id="flagsBox"></div>
+    </section>
+  </main>
+  <script>
+    function scoreColor(v) { return v < 15 ? "var(--green)" : v < 40 ? "var(--yellow)" : "var(--red)"; }
+    function renderReport(r) {
+      const sc = document.getElementById("overallScore");
+      sc.textContent = r.overall_ai_score.toFixed(1) + "%";
+      sc.style.color = scoreColor(r.overall_ai_score);
+      document.getElementById("verdictPill").textContent = r.verdict;
+
+      const st = r.stylometry;
+      const cards = [
+        ["Words / Sentences", `${st.word_count} / ${st.sentence_count}`],
+        ["Burstiness (CV)", `${st.burstiness_cv} (std ${st.sentence_length_std})`],
+        ["Stylometry Risk", `${st.heuristic_ai_risk.toFixed(1)}%`],
+        ["Contractions / Em-dashes", `${st.contraction_count} / ${st.em_dash_count}`],
+      ];
+      for (const c of r.classifier_scores || []) {
+        cards.push([`Model: ${c.model_key}`, `${c.ai_probability.toFixed(1)}%`]);
+      }
+      if (r.perplexity) {
+        cards.push(["DistilGPT2 PPL", r.perplexity.perplexity.toFixed(1)]);
+        cards.push(["Fast-DetectGPT Z", (r.perplexity.fast_detect_z >= 0 ? "+" : "") + r.perplexity.fast_detect_z.toFixed(2)]);
+      }
+      document.getElementById("metricsGrid").innerHTML = cards.map(([k, v]) =>
+        `<div class="metric"><div class="k">${k}</div><div class="v">${v}</div></div>`
+      ).join("");
+
+      document.getElementById("hygieneBox").innerHTML = (r.hygiene_warnings && r.hygiene_warnings.length)
+        ? `<strong>Hygiene Warnings:</strong><br/>` + r.hygiene_warnings.join("<br/>") : "";
+
+      document.getElementById("sectionsBox").innerHTML = (r.sections && r.sections.length)
+        ? `<strong>Sections / Pages:</strong>` + r.sections.map(s =>
+            `<div class="sec-row"><span>${s.label} (${s.word_count}w)</span><span style="color:${scoreColor(s.ai_score)}">${s.ai_score.toFixed(1)}%</span></div>`
+          ).join("") : "";
+
+      document.getElementById("flagsBox").innerHTML = (r.flagged_sentences && r.flagged_sentences.length)
+        ? `<strong>Flagged Sentences:</strong><br/>` + r.flagged_sentences.slice(0, 5).map(f =>
+            `<div class="flag-item"><strong>[${f.ai_score.toFixed(1)}%]</strong> ${f.reasons.join(", ")}<br/>${f.text}</div>`
+          ).join("") : "";
+    }
+    async function runScan() {
+      const text = document.getElementById("inputText").value;
+      const btn = document.getElementById("scanBtn");
+      btn.disabled = true;
+      try {
+        const res = await fetch("/api/scan", {
+          method: "POST", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            text,
+            use_neural: document.getElementById("useNeural").checked,
+            use_perplexity: document.getElementById("usePpl").checked,
+          })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.detail || "Scan failed");
+        renderReport(data);
+      } catch (e) { alert(e.message); } finally { btn.disabled = false; }
+    }
+    async function runFileScan() {
+      const fi = document.getElementById("fileInput");
+      if (!fi.files.length) return alert("Pick a file first.");
+      const fd = new FormData();
+      fd.append("file", fi.files[0]);
+      fd.append("use_neural", document.getElementById("useNeural").checked);
+      fd.append("use_perplexity", document.getElementById("usePpl").checked);
+      const res = await fetch("/api/scan-file", { method: "POST", body: fd });
+      const data = await res.json();
+      if (!res.ok) return alert(data.detail || "File scan failed");
+      renderReport(data);
+    }
+    async function runHumanize() {
+      const text = document.getElementById("inputText").value;
+      const btn = document.getElementById("humBtn");
+      btn.disabled = true;
+      try {
+        const res = await fetch("/api/humanize", {
+          method: "POST", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ text, rescore_neural: document.getElementById("useNeural").checked })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.detail || "Humanize failed");
+        document.getElementById("inputText").value = data.humanized_text;
+        document.getElementById("humNotes").innerHTML =
+          `<strong>Before: ${data.before_score.toFixed(1)}% &rarr; After: ${data.after_score.toFixed(1)}%</strong><br/>` +
+          (data.changes_applied.join("<br/>") || "Text already clean.");
+        renderReport(data.after_report);
+      } catch (e) { alert(e.message); } finally { btn.disabled = false; }
+    }
+  </script>
+</body>
+</html>

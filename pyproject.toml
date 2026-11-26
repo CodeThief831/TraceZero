@@ -1,0 +1,70 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "humanlens"
+version = "0.1.0"
+description = "Local multi-model AI text detector, Fast-DetectGPT perplexity auditor, PDF hygiene checker, and humanization workbench."
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+authors = [
+    {name = "Sai Thilak T"}
+]
+keywords = [
+    "ai-detection",
+    "humanizer",
+    "nlp",
+    "perplexity",
+    "fast-detectgpt",
+    "stylometry",
+    "pdf-hygiene",
+    "fastapi",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Education",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Text Processing :: Linguistic",
+]
+dependencies = [
+    "torch>=2.1.0",
+    "transformers>=4.40.0",
+    "safetensors>=0.4.0",
+    "requests>=2.31.0",
+    "pymupdf>=1.24.0",
+    "python-docx>=1.1.0",
+    "typer>=0.12.0",
+    "rich>=13.7.0",
+    "fastapi>=0.111.0",
+    "uvicorn>=0.30.0",
+    "python-multipart>=0.0.9",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "httpx>=0.27.0",
+]
+
+[project.scripts]
+humanlens = "humanlens.cli:app"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+humanlens = ["web/*.html"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
