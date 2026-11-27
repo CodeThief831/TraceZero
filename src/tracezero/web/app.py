@@ -14,6 +14,7 @@ from ..config import MODEL_REGISTRY, is_model_cached_locally
 from ..detectors.neural import NeuralDetectorEnsemble
 from ..detectors.perplexity import PerplexityAuditor
 from ..detectors.pipeline import analyze_document
+from ..detectors.plagiarism import compare_texts
 from ..extractors import extract_from_text, inspect_unicode_hygiene, normalize_extracted_text, split_paragraphs
 from ..humanizer.rules import humanize_text
 
@@ -33,6 +34,28 @@ class HumanizePayload(BaseModel):
     add_contractions: bool = True
     soften_em_dashes: bool = True
     rescore_neural: bool = True
+
+
+class PlagiarismPayload(BaseModel):
+    text: str
+    references: dict[str, str] = {}
+    ngram_size: int = 5
+
+
+def _extract_upload_bytes(filename: str, raw_bytes: bytes) -> str:
+    suffix = Path(filename or "upload.txt").suffix.lower()
+    if suffix == ".pdf":
+        import fitz
+
+        pdf_doc = fitz.open(stream=raw_bytes, filetype="pdf")
+        return normalize_extracted_text("\n\n".join(p.get_text("text") for p in pdf_doc))
+    if suffix == ".docx":
+        import io
+        import docx
+
+        d = docx.Document(io.BytesIO(raw_bytes))
+        return normalize_extracted_text("\n\n".join(p.text.strip() for p in d.paragraphs if p.text.strip()))
+    return normalize_extracted_text(raw_bytes.decode("utf-8", errors="replace"))
 
 
 @lru_cache(maxsize=4)
@@ -171,3 +194,37 @@ def api_humanize(payload: HumanizePayload) -> dict:
         "after_score": after.overall_ai_score,
         "after_report": after.to_dict(),
     }
+
+
+@app.post("/api/plagiarism")
+def api_plagiarism(payload: PlagiarismPayload) -> dict:
+    if not payload.text.strip():
+        raise HTTPException(status_code=400, detail="Candidate text is empty.")
+    report = compare_texts(
+        payload.text,
+        references=payload.references,
+        candidate_name="Web Input",
+        ngram_size=max(2, min(10, payload.ngram_size)),
+    )
+    return report.to_dict()
+
+
+@app.post("/api/plagiarism-files")
+async def api_plagiarism_files(
+    candidate: UploadFile = File(...),
+    references: list[UploadFile] = File(default=[]),
+    ngram_size: int = Form(5),
+) -> dict:
+    cand_txt = _extract_upload_bytes(candidate.filename or "candidate.txt", await candidate.read())
+    ref_map: dict[str, str] = {}
+    for ref in references:
+        r_txt = _extract_upload_bytes(ref.filename or "reference.txt", await ref.read())
+        if r_txt.strip():
+            ref_map[ref.filename or f"ref_{len(ref_map) + 1}"] = r_txt
+    report = compare_texts(
+        cand_txt,
+        references=ref_map,
+        candidate_name=candidate.filename or "Uploaded File",
+        ngram_size=max(2, min(10, ngram_size)),
+    )
+    return report.to_dict()

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TraceZero — Best Open-Source Plagiarism Checker, AI Detector &amp; Text Humanizer</title>
+  <meta name="description" content="TraceZero is a 100% local, open-source Plagiarism Checker, Multi-Model AI Content Detector, Fast-DetectGPT Perplexity Auditor, and AI Text Humanizer for PDF, DOCX, CLI, FastAPI &amp; Docker." />
+  <meta name="keywords" content="plagiarism checker, open source plagiarism checker, free plagiarism detector, ai detector, ai content detector, chatgpt detector, ai text humanizer, free turnitin alternative, gptzero alternative, fast-detectgpt, tfidf plagiarism, python nlp" />
+  <meta name="author" content="Sai Thilak T" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://codethief831.github.io/TraceZero/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="TraceZero — Open-Source Plagiarism Checker, AI Detector &amp; Humanizer" />
+  <meta property="og:description" content="Run local n-gram &amp; TF-IDF plagiarism checks, multi-RoBERTa AI detection, Fast-DetectGPT curvature scoring, PDF Unicode hygiene cleanup, and humanization with zero cloud leaks." />
+  <meta property="og:url" content="https://codethief831.github.io/TraceZero/" />
+  <meta property="og:image" content="https://raw.githubusercontent.com/CodeThief831/TraceZero/main/assets/tracezero-banner.gif" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="TraceZero — Open-Source Plagiarism Checker &amp; AI Detector" />
+  <meta name="twitter:description" content="100% local n-gram + TF-IDF plagiarism checker, RoBERTa AI detector, Fast-DetectGPT perplexity auditor &amp; text humanizer." />
+  <meta name="twitter:image" content="https://raw.githubusercontent.com/CodeThief831/TraceZero/main/assets/tracezero-banner.gif" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "TraceZero",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Windows, macOS, Linux, Docker",
+    "softwareVersion": "0.1.0",
+    "license": "https://opensource.org/licenses/MIT",
+    "url": "https://github.com/CodeThief831/TraceZero",
+    "description": "Open-source local Plagiarism Checker, multi-model AI Content Detector, Fast-DetectGPT Perplexity Auditor, PDF hygiene cleaner, and AI Text Humanizer.",
+    "author": {
+      "@type": "Person",
+      "name": "Sai Thilak T",
+      "url": "https://github.com/CodeThief831"
+    },
+    "offers": [
+      {
+        "@type": "Offer",
+        "name": "Community Open-Source (MIT)",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      {
+        "@type": "Offer",
+        "name": "Pro Sponsor Tier",
+        "price": "19",
+        "priceCurrency": "USD"
+      },
+      {
+        "@type": "Offer",
+        "name": "Team / University On-Prem License",
+        "price": "199",
+        "priceCurrency": "USD"
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg: #080c14;
+      --surface: #111827;
+      --border: #1f2937;
+      --text: #f3f4f6;
+      --muted: #9ca3af;
+      --accent: #34d399;
+      --blue: #38bdf8;
+      --pink: #ea4aaa;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: var(--bg); color: var(--text); line-height: 1.6;
+    }
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 36px 20px 64px; }
+    .hero { text-align: center; }
+    .hero img.banner { max-width: 100%; border-radius: 14px; border: 1px solid var(--border); }
+    h1 { font-size: clamp(28px, 4vw, 44px); margin: 22px 0 10px; letter-spacing: -0.02em; }
+    .lead { color: var(--muted); max-width: 780px; margin: 0 auto 24px; font-size: 18px; }
+    .cta-row { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-bottom: 32px; }
+    .btn {
+      display: inline-block; padding: 12px 22px; border-radius: 10px; text-decoration: none;
+      font-weight: 700; font-size: 15px; transition: transform 0.15s ease;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { background: var(--accent); color: #052e16; }
+    .btn-blue { background: var(--blue); color: #082f49; }
+    .btn-sponsor { background: var(--pink); color: #ffffff; }
+    .demo-gif { max-width: 100%; border-radius: 14px; border: 1px solid var(--border); margin: 20px 0 40px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; margin: 28px 0 44px; }
+    .card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 22px;
+    }
+    .card h2, .card h3 { margin-top: 0; font-size: 19px; color: var(--blue); }
+    .price { font-size: 32px; font-weight: 800; color: var(--accent); margin: 8px 0; }
+    pre {
+      background: #030712; border: 1px solid var(--border); border-radius: 10px;
+      padding: 16px; overflow-x: auto; font-size: 14px; color: #e5e7eb;
+    }
+    footer { text-align: center; color: var(--muted); font-size: 14px; margin-top: 48px; border-top: 1px solid var(--border); padding-top: 24px; }
+    a { color: var(--blue); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <img class="banner" src="https://raw.githubusercontent.com/CodeThief831/TraceZero/main/assets/tracezero-banner.gif" alt="TraceZero Open-Source AI Detector & Plagiarism Checker Banner" />
+      <h1>Open-Source Plagiarism Checker, AI Detector &amp; Humanizer</h1>
+      <p class="lead">
+        Run multi-RoBERTa AI detection, 5-gram &amp; TF-IDF cosine plagiarism checking, Fast-DetectGPT perplexity scoring, invisible PDF Unicode hygiene cleanup, and prose humanization — <strong>100% locally</strong> via CLI, FastAPI Web UI, and Docker.
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://github.com/CodeThief831/TraceZero">Star on GitHub</a>
+        <a class="btn btn-blue" href="https://github.com/CodeThief831/TraceZero#quickstart">CLI &amp; Docker Quickstart</a>
+        <a class="btn btn-sponsor" href="https://github.com/sponsors/CodeThief831">Sponsor &amp; Go Pro</a>
+      </div>
+      <img class="demo-gif" src="https://raw.githubusercontent.com/CodeThief831/TraceZero/main/assets/tracezero-motion.gif" alt="TraceZero Live AI Detection, Plagiarism & Humanization Demo" />
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <h2>Plagiarism Checker</h2>
+        <p>Offline 5-gram shingling, TF-IDF cosine similarity, internal self-repetition detection, and sentence-level matched excerpts across PDF, DOCX, TXT, and Markdown folders.</p>
+      </article>
+      <article class="card">
+        <h2>Multi-RoBERTa AI Detector</h2>
+        <p>Combines <code>fakespot-ai</code>, <code>roberta-academic-detector</code>, and optional <code>chatgpt-detector-roberta</code> on local weights with zero word-count paywalls.</p>
+      </article>
+      <article class="card">
+        <h2>Fast-DetectGPT Perplexity</h2>
+        <p>Computes token perplexity, GLTR Top-10 rank share, and curvature Z-scores locally via <code>distilgpt2</code> plus burstiness CV metrics.</p>
+      </article>
+      <article class="card">
+        <h2>Humanizer &amp; PDF Hygiene</h2>
+        <p>Detects invisible characters (<code>\xa0</code>, <code>\u2011</code>, <code>\u200b</code>), removes LLM cliché triplets &amp; em-dash habits, and integrates optional local Ollama loops.</p>
+      </article>
+    </section>
+
+    <section>
+      <h2>Run in 30 Seconds (CLI &amp; Docker)</h2>
+      <pre>pip install -e .
+tracezero plagiarism thesis.pdf --ref ./reference_papers/
+tracezero scan report.pdf --json-out audit.json
+tracezero humanize report.pdf -o clean_draft.txt
+tracezero serve --port 8000</pre>
+    </section>
+
+    <section id="pricing">
+      <h2>Editions, Sponsorship &amp; Commercial Licensing</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Community (MIT)</h3>
+          <div class="price">$0</div>
+          <p>Full CLI, FastAPI Workbench, Docker Compose, offline Plagiarism Engine, stylometry, and local model adapters.</p>
+          <a href="https://github.com/CodeThief831/TraceZero">Download Free</a>
+        </article>
+        <article class="card">
+          <h3>Pro Sponsor Tier</h3>
+          <div class="price">$19 / mo</div>
+          <p>Fund priority model packs, batch folder matrix exports, automated CI compliance rules, and priority bug fixes.</p>
+          <a href="https://github.com/sponsors/CodeThief831">Sponsor on GitHub</a>
+        </article>
+        <article class="card">
+          <h3>Team / Enterprise</h3>
+          <div class="price">$199+ / mo</div>
+          <p>Air-gapped institutional Docker bundle, custom corpus indexing API, SLA support, and white-label deployment setup.</p>
+          <a href="https://github.com/CodeThief831/TraceZero/issues/new?template=enterprise_inquiry.md">Request License</a>
+        </article>
+      </div>
+    </section>
+
+    <footer>
+      <p>TraceZero © 2026 <a href="https://github.com/CodeThief831">Sai Thilak T</a> • MIT Open Source • <a href="https://github.com/CodeThief831/TraceZero/blob/main/COMMERCIAL.md">Commercial Licensing</a></p>
+    </footer>
+  </div>
+</body>
+</html>

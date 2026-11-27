@@ -14,6 +14,7 @@ from rich.table import Table
 from . import __version__
 from .config import MODEL_REGISTRY, is_model_cached_locally, resolve_models_root
 from .detectors.pipeline import AnalysisReport, analyze_file, analyze_text
+from .detectors.plagiarism import compare_against_corpus
 from .downloader import download_model
 from .extractors import extract_from_file
 from .humanizer.rules import humanize_text
@@ -179,6 +180,55 @@ def humanize(
         console.print(f"[green]Saved humanized text to {out}[/green]")
     else:
         console.print("\n[bold]Humanized Output:[/bold]\n" + res.humanized_text)
+
+
+@app.command()
+def plagiarism(
+    target: str = typer.Argument(..., help="Path to a .pdf, .docx, .txt, .md file, or raw string."),
+    ref: list[Path] = typer.Option([], "--ref", "-r", help="Reference file(s) or folder(s) to compare against."),
+    ngram: int = typer.Option(5, "--ngram", "-n", min=2, max=10, help="N-gram shingle width."),
+    json_out: Optional[Path] = typer.Option(None, "--json-out", help="Write full JSON plagiarism report."),
+) -> None:
+    """Check a document or text for plagiarism, TF-IDF cosine overlap & self-repetition."""
+    report = compare_against_corpus(target, ref_paths=ref, ngram_size=ngram)
+    color = (
+        "green"
+        if report.overall_similarity_score < 10
+        else "yellow"
+        if report.overall_similarity_score < 35
+        else "red"
+    )
+    console.print(
+        Panel.fit(
+            f"[bold]{report.candidate_name}[/bold] ({report.candidate_words} words, {report.references_checked} refs)\n"
+            f"Similarity: [{color} bold]{report.overall_similarity_score:.1f}%[/{color} bold]  |  "
+            f"Originality: [green]{report.originality_score:.1f}%[/green]  |  "
+            f"Self-Overlap: {report.self_overlap_pct:.1f}%\n"
+            f"Verdict: [{color}]{report.verdict}[/{color}]",
+            title="TraceZero Plagiarism Audit",
+        )
+    )
+    if report.source_matches:
+        t_src = Table(title="Matched Reference Sources")
+        t_src.add_column("Source", style="cyan")
+        t_src.add_column("N-Gram Containment", justify="right")
+        t_src.add_column("TF-IDF Cosine", justify="right")
+        t_src.add_column("Combined", justify="right")
+        for m in report.source_matches:
+            t_src.add_row(
+                m.source_name,
+                f"{m.containment_pct:.1f}%",
+                f"{m.cosine_similarity_pct:.1f}%",
+                f"{m.combined_similarity_pct:.1f}%",
+            )
+        console.print(t_src)
+    if report.matched_passages:
+        console.print("[bold yellow]Top Overlapping Passages:[/bold yellow]")
+        for idx, p_match in enumerate(report.matched_passages[:6], 1):
+            console.print(f"  {idx}. [{p_match.similarity_pct:.1f}% vs {p_match.source_name}] {p_match.candidate_excerpt}")
+    if json_out:
+        json_out.write_text(json.dumps(report.to_dict(), indent=2), encoding="utf-8")
+        console.print(f"[green]Saved JSON plagiarism report to {json_out}[/green]")
 
 
 @app.command()

@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TraceZero — AI Detection & Humanization Workbench</title>
+  <title>TraceZero — Open-Source AI Detector, Plagiarism Checker &amp; Humanizer</title>
+  <meta name="description" content="100% local multi-model AI text detector, offline n-gram & TF-IDF plagiarism checker, Fast-DetectGPT perplexity auditor, PDF hygiene cleaner, and humanizer." />
   <style>
     :root {
       --bg: #0b0f17;
@@ -63,16 +64,20 @@
 <body>
   <header>
     <h1>TraceZero</h1>
-    <span>Local Multi-Model AI Detector &amp; Humanization Workbench</span>
+    <span>Local AI Detector • Plagiarism Checker • Humanization Workbench</span>
   </header>
   <main>
     <section class="card">
-      <textarea id="inputText" placeholder="Paste text here or upload a PDF / DOCX / TXT file below..."></textarea>
+      <textarea id="inputText" placeholder="Paste candidate text here or upload a PDF / DOCX / TXT file below..."></textarea>
       <div class="controls">
-        <button id="scanBtn" onclick="runScan()">Scan Text</button>
+        <button id="scanBtn" onclick="runScan()">Scan AI</button>
         <button id="humBtn" class="secondary" onclick="runHumanize()">Humanize &amp; Clean</button>
+        <button id="plagBtn" class="secondary" onclick="runPlagiarism()">Check Plagiarism</button>
         <label class="chk"><input type="checkbox" id="useNeural" checked /> Neural Ensemble</label>
         <label class="chk"><input type="checkbox" id="usePpl" /> DistilGPT2 Perplexity</label>
+      </div>
+      <div style="margin-top: 12px;">
+        <textarea id="refText" style="min-height: 92px; font-size: 13px;" placeholder="Optional Reference Corpus for Plagiarism Check (leave empty to check internal self-overlap / repetition)..."></textarea>
       </div>
       <div class="controls" style="margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border);">
         <input type="file" id="fileInput" accept=".pdf,.docx,.txt,.md" />
@@ -83,7 +88,7 @@
     <section class="card">
       <div class="score-box">
         <div>
-          <div style="font-size:12px;color:var(--muted);">OVERALL AI PROBABILITY</div>
+          <div id="scoreLabel" style="font-size:12px;color:var(--muted);">OVERALL AI PROBABILITY</div>
           <div id="overallScore" class="score-num">—</div>
         </div>
         <span id="verdictPill" class="pill">Ready</span>
@@ -97,6 +102,7 @@
   <script>
     function scoreColor(v) { return v < 15 ? "var(--green)" : v < 40 ? "var(--yellow)" : "var(--red)"; }
     function renderReport(r) {
+      document.getElementById("scoreLabel").textContent = "OVERALL AI PROBABILITY";
       const sc = document.getElementById("overallScore");
       sc.textContent = r.overall_ai_score.toFixed(1) + "%";
       sc.style.color = scoreColor(r.overall_ai_score);
@@ -179,6 +185,41 @@
           `<strong>Before: ${data.before_score.toFixed(1)}% &rarr; After: ${data.after_score.toFixed(1)}%</strong><br/>` +
           (data.changes_applied.join("<br/>") || "Text already clean.");
         renderReport(data.after_report);
+      } catch (e) { alert(e.message); } finally { btn.disabled = false; }
+    }
+    async function runPlagiarism() {
+      const text = document.getElementById("inputText").value;
+      const refRaw = document.getElementById("refText").value;
+      const btn = document.getElementById("plagBtn");
+      btn.disabled = true;
+      try {
+        const refs = refRaw.trim() ? { "Reference Corpus": refRaw } : {};
+        const res = await fetch("/api/plagiarism", {
+          method: "POST", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ text, references: refs, ngram_size: 5 })
+        });
+        const r = await res.json();
+        if (!res.ok) throw new Error(r.detail || "Plagiarism check failed");
+        document.getElementById("scoreLabel").textContent = "PLAGIARISM / SIMILARITY SCORE";
+        const sc = document.getElementById("overallScore");
+        sc.textContent = r.overall_similarity_score.toFixed(1) + "%";
+        sc.style.color = scoreColor(r.overall_similarity_score);
+        document.getElementById("verdictPill").textContent = r.verdict;
+        document.getElementById("metricsGrid").innerHTML = [
+          ["Originality Score", `${r.originality_score.toFixed(1)}%`],
+          ["Candidate Words", `${r.candidate_words}`],
+          ["References Checked", `${r.references_checked}`],
+          ["Self-Overlap", `${r.self_overlap_pct.toFixed(1)}%`],
+        ].map(([k, v]) => `<div class="metric"><div class="k">${k}</div><div class="v">${v}</div></div>`).join("");
+        document.getElementById("hygieneBox").innerHTML = "";
+        document.getElementById("sectionsBox").innerHTML = (r.source_matches || []).length
+          ? `<strong>Matched Sources:</strong>` + r.source_matches.map(m =>
+              `<div class="sec-row"><span>${m.source_name} (Cosine ${m.cosine_similarity_pct}%)</span><span style="color:${scoreColor(m.combined_similarity_pct)}">${m.combined_similarity_pct.toFixed(1)}%</span></div>`
+            ).join("") : "";
+        document.getElementById("flagsBox").innerHTML = (r.matched_passages || []).length
+          ? `<strong>Matched Passages:</strong><br/>` + r.matched_passages.slice(0, 5).map(p =>
+              `<div class="flag-item"><strong>[${p.similarity_pct.toFixed(1)}% vs ${p.source_name}]</strong><br/>${p.candidate_excerpt}</div>`
+            ).join("") : "";
       } catch (e) { alert(e.message); } finally { btn.disabled = false; }
     }
   </script>

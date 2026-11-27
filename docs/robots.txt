@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://codethief831.github.io/TraceZero/sitemap.xml

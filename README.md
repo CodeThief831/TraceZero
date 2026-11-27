@@ -1,11 +1,11 @@
 <div align="center">
 
-<img src="assets/tracezero-banner.gif" alt="TraceZero — Local AI Forensics & Humanization Engine" width="900" />
+<img src="assets/tracezero-banner.gif" alt="TraceZero — Best Open-Source Plagiarism Checker, AI Detector & Text Humanizer" width="900" />
 
 <br />
 
-<a href="https://github.com/CodeThief831/TraceZero">
-  <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=20&duration=2600&pause=900&color=34D399&center=true&vCenter=true&width=760&lines=Expose+AI+fingerprints.+Restore+human+cadence.;Multi-RoBERTa+%2B+Fast-DetectGPT+Curvature+%2B+Stylometry;Catch+invisible+PDF+Unicode+traps+(%5Cxa0%2C+%5Cu2011%2C+%5Cu200b);100%25+Local+%E2%80%A2+Zero+Cloud+Leaks+%E2%80%A2+Docker+Ready" alt="TraceZero Typing Tagline" />
+<a href="https://codethief831.github.io/TraceZero/">
+  <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=20&duration=2600&pause=900&color=34D399&center=true&vCenter=true&width=820&lines=Best+Open-Source+Plagiarism+Checker+%2B+AI+Detector+%2B+Humanizer;5-Gram+%2B+TF-IDF+Plagiarism+%E2%80%A2+Multi-RoBERTa+%E2%80%A2+Fast-DetectGPT;Zero+Turnitin+%2F+GPTZero+Paywalls+%E2%80%A2+Catch+PDF+Unicode+Traps;100%25+Local+%E2%80%A2+Privacy-First+%E2%80%A2+Docker+%2B+REST+API+Ready" alt="TraceZero Typing Tagline" />
 </a>
 
 <br />
@@ -13,25 +13,32 @@
 [![CI](https://github.com/CodeThief831/TraceZero/actions/workflows/ci.yml/badge.svg)](https://github.com/CodeThief831/TraceZero/actions/workflows/ci.yml)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-38bdf8.svg?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![Docker Ready](https://img.shields.io/badge/docker-ready-2496ed.svg?style=for-the-badge&logo=docker&logoColor=white)](#docker-setup-recommended-for-large-models)
-[![FastAPI](https://img.shields.io/badge/FastAPI-Workbench-009688.svg?style=for-the-badge&logo=fastapi&logoColor=white)](#interactive-web-workbench--api)
+[![FastAPI](https://img.shields.io/badge/FastAPI-Workbench-009688.svg?style=for-the-badge&logo=fastapi&logoColor=white)](#interactive-web-workbench--rest-api)
 [![License: MIT](https://img.shields.io/badge/license-MIT-22c55e.svg?style=for-the-badge)](LICENSE)
 
 <br />
 
 [![GitHub Stars](https://img.shields.io/github/stars/CodeThief831/TraceZero?style=social)](https://github.com/CodeThief831/TraceZero/stargazers)
 &nbsp;&nbsp;
-[![Sponsor @CodeThief831](https://img.shields.io/badge/Sponsor-CodeThief831-ea4aaa?style=for-the-badge&logo=githubsponsors&logoColor=white)](https://github.com/sponsors/CodeThief831)
+[![Sponsor @CodeThief831](https://img.shields.io/badge/Sponsor_%26_Go_Pro-CodeThief831-ea4aaa?style=for-the-badge&logo=githubsponsors&logoColor=white)](https://github.com/sponsors/CodeThief831)
 &nbsp;&nbsp;
-[![Forks](https://img.shields.io/github/forks/CodeThief831/TraceZero?style=social)](https://github.com/CodeThief831/TraceZero/network/members)
+[![Website](https://img.shields.io/badge/Live_Docs-GitHub_Pages-38bdf8?style=for-the-badge&logo=github&logoColor=white)](https://codethief831.github.io/TraceZero/)
+
+<h1>TraceZero — Open-Source Plagiarism Checker, AI Content Detector &amp; Humanizer</h1>
+
+<p>
+  <strong>The free, 100% local alternative to Turnitin, GPTZero, Copyleaks &amp; Originality.ai.</strong><br/>
+  Combine cross-document <strong>n-gram + TF-IDF plagiarism checking</strong>, a <strong>Multi-RoBERTa AI classifier ensemble</strong>, <strong>Fast-DetectGPT DistilGPT2 perplexity scoring</strong>, <strong>PDF Unicode hygiene cleanup</strong>, and a <strong>text humanizer</strong> in one privacy-first toolkit.
+</p>
 
 <p>
   <a href="#live-forensic-motion-demo"><strong>Live Demo</strong></a> •
-  <a href="#architecture--pipeline"><strong>Pipeline</strong></a> •
+  <a href="#plagiarism-checker-n-gram--tf-idf--self-overlap"><strong>Plagiarism Checker</strong></a> •
+  <a href="#architecture--pipeline"><strong>AI Detection Pipeline</strong></a> •
   <a href="#quickstart"><strong>CLI Quickstart</strong></a> •
   <a href="#docker-setup-recommended-for-large-models"><strong>Docker</strong></a> •
-  <a href="#interactive-web-workbench--api"><strong>Web UI & API</strong></a> •
-  <a href="#python-sdk"><strong>Python SDK</strong></a> •
-  <a href="#-star--sponsor"><strong>Sponsor</strong></a>
+  <a href="#interactive-web-workbench--rest-api"><strong>Web UI &amp; API</strong></a> •
+  <a href="#-monetization-pro-tiers--sponsorship"><strong>Pro &amp; Sponsor</strong></a>
 </p>
 
 </div>
@@ -41,37 +48,53 @@
 ## Live Forensic Motion Demo
 
 <div align="center">
-  <img src="assets/tracezero-motion.gif" alt="TraceZero Live AI Detection, Perplexity Curve & Humanizer Transformation" width="880" />
+  <img src="assets/tracezero-motion.gif" alt="TraceZero Live AI Detection, Plagiarism Checker, Perplexity Curve & Humanizer Demo" width="880" />
 </div>
 
-> **TraceZero** audits documents across **four independent signals** on your own hardware—catching statistical uniformity, neural classifier peaks, cliché triplets, and hidden PDF Unicode artifacts—then strips those fingerprints and re-scores in real time.
+> **Why pay per-word SaaS fees or leak unpublished manuscripts to cloud databases?** TraceZero runs **Plagiarism Checking + AI Content Detection + Stylometry + Humanization** completely offline on your own CPU/GPU or private Docker server.
 
 ---
 
-## Why TraceZero?
+## TraceZero vs. Turnitin, GPTZero, Copyleaks & Basic Scripts
 
-Most web AI checkers lock weights behind a black box, monetize per 500 words, and silently choke on invisible formatting bytes (`\xa0`, `\u2011`, `\u200b`) emitted by PDF exporters. Meanwhile, naive Python scripts only grep a handful of words.
-
-| Capability | Cloud Scanners | Basic Scripts | **TraceZero** |
+| Feature | Paid SaaS Scanners | Basic Scripts | **TraceZero (Open Source)** |
 | :--- | :---: | :---: | :---: |
-| **Multi-RoBERTa Neural Ensemble** (`fakespot` + `academic_det` + `chatgpt_roberta`) | Black-box | No | **Local Weights** |
-| **DistilGPT2 Perplexity, GLTR Top-10 & Fast-DetectGPT Z-Score** | Hidden | No | **Computed Live** |
-| **Sentence Burstiness (`CV`), Triplet & AI Cliché Density** | Partial | Basic | **Instant (`--fast`)** |
+| **Offline N-Gram + TF-IDF Plagiarism Checker** (Files, Folders & Self-Overlap) | Cloud database only | No | **100% Local (`tracezero plagiarism`)** |
+| **Multi-RoBERTa Neural AI Detector** (`fakespot` + `academic_det` + `chatgpt_roberta`) | Black-box | No | **Transparent Local Ensemble** |
+| **DistilGPT2 Perplexity, GLTR Top-10 & Fast-DetectGPT Z-Score** | Hidden | No | **Computed Live Locally** |
+| **Sentence Burstiness (`CV`), Triplet & AI Cliché Audit** | Partial | Basic | **Instant (`--fast` mode)** |
 | **PDF / DOCX Invisible Unicode Hygiene (`\xa0`, `\u2011`, `\u200b`)** | Breaks silently | No | **Auto-Detected & Cleaned** |
-| **Deterministic Humanizer + Optional Local Ollama Loop** | Paid upsell | No | **Built-in (MIT)** |
-| **Zero-Bloat Docker Setup (Models Mounted via Volume)** | N/A | N/A | **`docker compose up`** |
-| **100% Private (Zero Documents Uploaded to Any Cloud API)** | Uploads your IP | Usually | **Zero Cloud Calls** |
+| **Text Humanizer + Optional Local Ollama Loop** | Paid upsell | No | **Included (MIT)** |
+| **Word Limits / Document Leaks / SaaS Lock-in** | Strict monthly caps | N/A | **Unlimited • Zero Cloud Calls** |
+
+---
+
+## Plagiarism Checker (N-Gram + TF-IDF + Self-Overlap)
+
+TraceZero checks `.pdf`, `.docx`, `.txt`, `.md`, or raw text against any folder of reference files or pasted corpus text—completely offline:
+
+- **5-Gram Shingle Containment:** Detects verbatim copied sentences and passage stitching, highlighting exact matched excerpts.
+- **Pure-Python TF-IDF Cosine Similarity:** Flags lightly reordered or paraphrased overlap across large reference collections with zero heavy external dependencies.
+- **Internal Self-Plagiarism Check:** Audits documents for duplicated copy-pasted paragraphs even when no external reference folder is supplied.
+
+```bash
+# Check a thesis PDF against an entire folder of reference PDFs & DOCX papers
+tracezero plagiarism thesis.pdf --ref ./reference_papers/ --json-out plagiarism_report.json
+
+# Compare inline draft text against multiple source files
+tracezero plagiarism draft.txt --ref source_a.pdf --ref source_b.docx
+```
 
 ---
 
 ## Architecture & Pipeline
 
 <div align="center">
-  <img src="assets/tracezero-pipeline.gif" alt="TraceZero Multi-Signal Forensic Detection & Humanization Pipeline" width="880" />
+  <img src="assets/tracezero-pipeline.gif" alt="TraceZero Multi-Signal Forensic AI Detection, Plagiarism & Humanization Pipeline" width="880" />
 </div>
 
 <details>
-<summary><strong>Click to view Model Registry & Mermaid Signal Graph</strong></summary>
+<summary><strong>Click to view Model Registry &amp; Signal Architecture</strong></summary>
 
 ### Supported Local Models (Stored Outside Git in `./models`)
 
@@ -87,10 +110,12 @@ Most web AI checkers lock weights behind a black box, monetize per 500 words, an
 ```mermaid
 flowchart LR
     In["PDF / DOCX / TXT / Raw Text"] --> Ext["Extractor & Unicode Hygiene"]
+    Ext --> Plag["Offline Plagiarism (5-Gram + TF-IDF Cosine + Self-Overlap)"]
     Ext --> Stylo["Stylometry Auditor (CV, Triplets, Clichés)"]
     Ext --> Ens["RoBERTa Ensemble (Fakespot + Academic)"]
     Ext --> LM["DistilGPT2 (PPL, GLTR Top-10, Fast-DetectGPT Z)"]
-    Stylo --> Rep["Unified Report + Page/Sentence Heatmap"]
+    Plag --> Rep["Unified Report + Page/Sentence Heatmap"]
+    Stylo --> Rep
     Ens --> Rep
     LM --> Rep
     Rep --> Hum["Deterministic Humanizer / Optional Ollama Loop"]
@@ -119,35 +144,37 @@ pip install -e ".[dev]"
 
 ### 2. Download Model Weights (Kept Outside Git)
 
-Weights live in `./models/` (or `$TRACEZERO_MODELS_DIR`), completely ignored by `.gitignore` so the repository stays featherweight:
-
 ```bash
 tracezero download-models
 tracezero models
 ```
 
-### 3. Run Scans & Humanize from CLI
+### 3. Scan for AI, Check Plagiarism & Humanize from CLI
 
 ```bash
-# Full neural + DistilGPT2 Fast-DetectGPT + stylometry + PDF hygiene audit
+# 1. Full AI detection + Fast-DetectGPT + stylometry + PDF hygiene scan
 tracezero scan report.pdf --json-out audit.json
 
-# Ultra-fast offline scan (stylometry + hygiene only, no weights needed)
+# 2. Plagiarism check against a reference directory
+tracezero plagiarism report.pdf --ref ./papers/
+
+# 3. Ultra-fast offline stylometry scan (no model downloads needed)
 tracezero scan draft.txt --fast
 
-# Clean invisible Unicode, strip AI filler, and show before/after score
+# 4. Clean invisible PDF Unicode, remove AI filler, and show before/after delta
 tracezero humanize report.pdf -o clean_draft.txt
 ```
 
 <details>
-<summary><strong>Click for full CLI Command & Flag Reference</strong></summary>
+<summary><strong>Click for full CLI Command &amp; Flag Reference</strong></summary>
 
 | Command | Key Options | Description |
 | :--- | :--- | :--- |
 | `tracezero version` | — | Print installed version |
 | `tracezero models` | — | Show model registry & whether each weight folder is cached locally |
 | `tracezero download-models` | `[keys...]` | Download model weights (`fakespot academic_det distilgpt2` by default) |
-| `tracezero scan <target>` | `--fast`, `--no-ppl`, `--model/-m`, `--json-out` | Audit `.pdf`, `.docx`, `.txt`, `.md`, or raw text |
+| `tracezero scan <target>` | `--fast`, `--no-ppl`, `--model/-m`, `--json-out` | AI detection audit on `.pdf`, `.docx`, `.txt`, `.md`, or raw text |
+| `tracezero plagiarism <target>` | `--ref/-r`, `--ngram/-n`, `--json-out` | N-gram shingling, TF-IDF cosine similarity & self-repetition audit |
 | `tracezero humanize <target>` | `--out/-o`, `--fast` | Run deterministic hygiene/cadence pass and print before/after delta |
 | `tracezero serve` | `--host`, `--port` | Start FastAPI server & interactive dark-mode Web Workbench |
 
@@ -157,52 +184,46 @@ tracezero humanize report.pdf -o clean_draft.txt
 
 ## Docker Setup (Recommended for Large Models)
 
-Because transformer weights total ~1.3 GB, TraceZero uses a **slim Python 3.12 Docker image** (`~300 MB` code + CPU PyTorch) and mounts `./models` from your host—so rebuilding after code updates takes seconds.
+TraceZero builds into a slim Python 3.12 container while mounting `./models` as a host volume so multi-GB weights stay out of Git and container layers:
 
 ```bash
-# 1. Build the slim container
 docker compose build
-
-# 2. Fetch models once into your host ./models/ directory
 docker compose run --rm tracezero download-models
-
-# 3. Launch the Web Workbench at http://localhost:8000
 docker compose up -d
 ```
 
-Run a one-off CLI file audit inside the container without starting the daemon:
+Open **[http://localhost:8000](http://localhost:8000)** for the Web UI, or run one-off CLI plagiarism/AI scans inside Docker:
 
 ```bash
 docker run --rm \
   -v "${PWD}/models:/app/models" \
   -v "${PWD}:/data" \
-  tracezero-tracezero scan /data/report.pdf --json-out /data/audit.json
+  tracezero-tracezero plagiarism /data/report.pdf --ref /data/refs
 ```
 
 ---
 
-## Interactive Web Workbench & API
-
-Start locally without Docker:
+## Interactive Web Workbench & REST API
 
 ```bash
 tracezero serve --port 8000
 ```
 
-Open **[http://localhost:8000](http://localhost:8000)** for the dark-mode FastAPI workbench:
-- **Drag-and-Drop Documents & Live Text:** Supports `.pdf`, `.docx`, `.txt`, `.md`, and raw prose.
-- **Multi-Signal Telemetry:** Inspect `fakespot`, `academic_det`, `DistilGPT2 Perplexity`, `Fast-DetectGPT Z-score`, and `stylometry` side-by-side.
-- **Sentence Heatmaps & One-Click Clean:** Flag high-probability sentences, highlight clichés/em-dashes/triplets, and clean + re-score instantly.
+Built into **[http://localhost:8000](http://localhost:8000)**:
+- **Unified AI Detector + Plagiarism Checker + Humanizer UI:** Switch between AI scoring, cross-document plagiarism checks, self-overlap audits, and one-click cleaning.
+- **Full REST API Ready for SaaS Wrapping:** Deploy behind Stripe/API keys cleanly with `/api/scan`, `/api/scan-file`, `/api/plagiarism`, `/api/plagiarism-files`, `/api/humanize`, and `/api/health`.
 
 <details>
-<summary><strong>Click to inspect REST API Endpoints</strong></summary>
+<summary><strong>Click to inspect FastAPI Endpoints</strong></summary>
 
 | Method | Endpoint | Purpose |
 | :--- | :--- | :--- |
-| `GET` | `/` | Interactive TraceZero Web Workbench UI |
-| `GET` | `/api/health` | Service status, version, and local model cache availability |
-| `POST` | `/api/scan` | JSON audit (`text`, `use_neural`, `use_perplexity`, `models`) |
-| `POST` | `/api/scan-file` | Multipart file upload (`.pdf`, `.docx`, `.txt`, `.md`) |
+| `GET` | `/` | Interactive TraceZero Web Workbench (AI Detector, Plagiarism & Humanizer) |
+| `GET` | `/api/health` | Service status, version & local model cache availability |
+| `POST` | `/api/scan` | JSON AI audit (`text`, `use_neural`, `use_perplexity`, `models`) |
+| `POST` | `/api/scan-file` | Multipart document AI audit (`.pdf`, `.docx`, `.txt`, `.md`) |
+| `POST` | `/api/plagiarism` | JSON plagiarism check (`text`, `references`, `ngram_size`) |
+| `POST` | `/api/plagiarism-files` | Multipart plagiarism check (`candidate` file vs multiple `references` files) |
 | `POST` | `/api/humanize` | Clean + re-score (`text`, `add_contractions`, `soften_em_dashes`, `rescore_neural`) |
 
 </details>
@@ -212,57 +233,71 @@ Open **[http://localhost:8000](http://localhost:8000)** for the dark-mode FastAP
 ## Python SDK
 
 ```python
-from tracezero.detectors import analyze_file, analyze_text
+from tracezero.detectors import analyze_file, compare_against_corpus, compare_texts
 from tracezero.humanizer import humanize_text, rewrite_with_openai_compatible
 
-# 1. Full forensic scan on a PDF submission
-report = analyze_file("submission.pdf")
-print(f"Score: {report.overall_ai_score}% ({report.verdict})")
+# 1. Check Plagiarism against a local reference corpus folder
+plag = compare_against_corpus("thesis.pdf", ref_paths=["./reference_papers"])
+print(f"Similarity: {plag.overall_similarity_score}% | Originality: {plag.originality_score}%")
 
-# 2. Deterministic Unicode & cliché cleanup (100% offline, zero hallucinations)
+# 2. Multi-model AI Content Detection
+ai_report = analyze_file("thesis.pdf")
+print(f"AI Probability: {ai_report.overall_ai_score}% ({ai_report.verdict})")
+
+# 3. Clean PDF Unicode & humanize prose (optional Ollama rewrite loop)
 cleaned = humanize_text("Furthermore,\u00a0it is crucial to leverage robust solutions.")
 print(cleaned.humanized_text)
-
-# 3. Optional detector-guided cadence rewrite via local Ollama / OpenAI-compatible endpoint
-rewritten = rewrite_with_openai_compatible(
-    cleaned.humanized_text,
-    model="llama3.1",
-    base_url="http://localhost:11434/v1",
-)
 ```
 
 ---
 
-## Development & Verification
+## FAQ (Plagiarism, AI Detection & Privacy)
 
-```bash
-pytest -v
-```
+<details>
+<summary><strong>Can TraceZero check plagiarism 100% free and offline without uploading my paper?</strong></summary>
 
-Heavy model downloads are mocked in the test suite so CI verifies PDF/DOCX extraction, Unicode normalization, stylometry math, humanizer transformations, CLI commands, and FastAPI endpoints in seconds.
+Yes. Unlike cloud plagiarism checkers that archive submitted essays and charge per page, `tracezero plagiarism` and `POST /api/plagiarism-files` compute 5-gram shingling, TF-IDF cosine similarity, and self-overlap locally on your machine with zero network calls.
+</details>
+
+<details>
+<summary><strong>Why do Turnitin and GPTZero flag clean human PDFs?</strong></summary>
+
+PDF generators often inject invisible characters like non-breaking spaces (`\xa0`), non-breaking hyphens (`\u2011`), and zero-width joiners (`\u200b`) alongside flat formulaic transitions. TraceZero exposes and strips these anomalies before scoring.
+</details>
+
+<details>
+<summary><strong>How can I monetize or deploy TraceZero commercially for my team or SaaS?</strong></summary>
+
+TraceZero uses an MIT core license—you can self-host `docker compose up -d` behind an API gateway cleanly, or license our Pro/Enterprise deployment blueprints and custom tuning packages in [COMMERCIAL.md](COMMERCIAL.md).
+</details>
 
 ---
 
-## 💖 Star & Sponsor
+## 💖 Monetization, Pro Tiers & Sponsorship
 
-If **TraceZero** helped you audit a manuscript, catch hidden AI fingerprints, or keep sensitive documents off third-party clouds:
+TraceZero follows an **Open-Core + Sponsorship** model ([full details in `COMMERCIAL.md`](COMMERCIAL.md)):
+
+| Tier | Price | Included | Link |
+| :--- | :---: | :--- | :--- |
+| **Community (MIT)** | **\$0** | Full local CLI, Web UI, Docker, Plagiarism + AI Detection + Humanizer | [`CodeThief831/TraceZero`](https://github.com/CodeThief831/TraceZero) |
+| **Pro Sponsor** | **\$19 / mo** | Priority multilingual/DeBERTa-v3 presets, batch audit recipes & priority support | [Sponsor on GitHub](https://github.com/sponsors/CodeThief831) |
+| **Team / University On-Prem** | **\$199 / mo** | Air-gapped Docker architecture, multi-worker API scaling & corpus blueprint | [Request License](https://github.com/CodeThief831/TraceZero/issues/new?template=enterprise_inquiry.md) |
+| **Enterprise White-Label / SaaS** | **Custom** | Turnkey Stripe/API gateway monetization wrapper & custom model tuning | [Commercial Inquiry](https://github.com/CodeThief831/TraceZero/issues/new?template=enterprise_inquiry.md) |
 
 <div align="center">
 
 [![Star on GitHub](https://img.shields.io/badge/%E2%AD%90_Star_TraceZero_on_GitHub-111827?style=for-the-badge&logo=github&logoColor=white)](https://github.com/CodeThief831/TraceZero)
 &nbsp;&nbsp;
 [![Sponsor on GitHub](https://img.shields.io/badge/Sponsor_%40CodeThief831-ea4aaa?style=for-the-badge&logo=githubsponsors&logoColor=white)](https://github.com/sponsors/CodeThief831)
+&nbsp;&nbsp;
+[![Enterprise License](https://img.shields.io/badge/Commercial_%26_Enterprise-34d399?style=for-the-badge)](COMMERCIAL.md)
 
 </div>
 
-Sponsorship funds **DeBERTa-v3 detector adapters**, **multilingual perplexity models**, **GPU/ONNX acceleration**, and **enterprise/on-prem consulting** ([`FUNDING.yml`](.github/FUNDING.yml)).
-
 ---
 
-## Responsible Use
+## Responsible Use & License
 
-No automated AI-text detector achieves 100% precision. False positives occur on concise, formal, or non-native technical writing, and detector probabilities must never serve as standalone proof of misconduct. TraceZero is intended as a transparent, local writing audit and quality workbench.
-
-## License
+No automated plagiarism or AI-text detector achieves 100% precision. Plagiarism similarity scores measure lexical/structural overlap against supplied references and self-repetition, and AI probabilities should always be reviewed by a human editor rather than used as standalone proof of misconduct.
 
 [MIT](LICENSE) — Copyright © 2026 [Sai Thilak T](https://github.com/CodeThief831)
